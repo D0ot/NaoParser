@@ -6,14 +6,16 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <cstdlib>
+#include <unistd.h>
 #include "sexpresso.hpp"
 #include "naometadata.h"
 
-
-
+const std::string testfile = "/home/doot/learnthings/learnse/test.se";
+const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
 std::string file2String(const std::string arg_filename)
 {
-	auto fb = std::ifstream("./test.se");
+	auto fb = std::ifstream(testfile);
 	std::stringstream ss;
 	ss << fb.rdbuf();
 	return ss.str();
@@ -39,7 +41,7 @@ void test1()
 {
 	std::cout << "Basic Test start." << std::endl;
 	std::string s_exp_data = "(fuck 1) (time (now 93.60)) (GS(t 0.00) (pm BeforeKickOff)) (hear 0.00 self 1000-501)";
-	auto data = file2String("./test.se");
+	auto data = file2String(testfile);
 
 	//std::cout << s_exp_data << std::endl;
 	auto result = sexpresso::parse(s_exp_data);
@@ -68,7 +70,7 @@ void showHJ(NaoMetaData::MetaData& md, const std::string &name)
 
 void test2()
 {
-	NaoMetaData::MetaData md("./test.se");
+	NaoMetaData::MetaData md(testfile);
 
 	std::cout << "now: " << md.getTimeNow() << std::endl;
 
@@ -87,9 +89,25 @@ void test2()
 
 }
 
+void test3()
+{
+	NaoMetaData::MetaData md;
+	
+	for(int i = 1; i < 700; ++i)
+	{
+		
+		std::system("clear");
+		std::cout << i << std::endl;
+		md.updateData(testfile_prefix + std::to_string(i));
+		md.print();
+		usleep(50*1000);
+	}
+}
+
+
 int main(void)
 {
-	test2();
+	test3();
 	return 0;
 }
 

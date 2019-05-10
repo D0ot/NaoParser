@@ -72,8 +72,9 @@ namespace NaoMetaData
 
     struct hear
     {
-        double p1;
-        std::string p2, p3;
+        std::string p1;
+        double p2;
+        std::string p3, p4;
     };
 
 

@@ -1,4 +1,5 @@
-//Filename : naometadata.cpp
+//Author D0ot at github
+//5.10 2019
 #include "naometadata.h"
 
 
@@ -125,9 +126,10 @@ namespace NaoMetaData
     NaoMetaData::hear MetaData::resolvehear(const sexpresso::Sexp &arg_sexp)
     {
         NaoMetaData::hear temp;
-        temp.p1 = std::stod(arg_sexp.value.sexp[1].value.str);
-        temp.p2 = arg_sexp.value.sexp[2].value.str;
+        temp.p1 = arg_sexp.value.sexp[1].value.str;
+        temp.p2 = std::stod(arg_sexp.value.sexp[2].value.str);
         temp.p3 = arg_sexp.value.sexp[3].value.str;
+        temp.p4 = arg_sexp.value.sexp[4].value.str;
         return temp;
     }
 
@@ -173,7 +175,14 @@ namespace NaoMetaData
     {
         NaoMetaData::HJ temp;
         temp.n = arg_sexp.value.sexp[1].value.sexp[1].value.str;
-        temp.ax = std::stod(arg_sexp.value.sexp[2].value.sexp[1].value.str);
+
+        try {
+            temp.ax = std::stod(arg_sexp.value.sexp[2].value.sexp[1].value.str);
+        } catch(std::exception &exc)
+        {
+            std::cerr << "Exception : " << exc.what() << std::endl;
+            temp.ax = 0;
+        }
         return temp;
     }
 
@@ -239,7 +248,23 @@ namespace NaoMetaData
 
     void MetaData::print()const
     {
-        throw MetaDataExeception("Unimplemented function called : MetaData::print().");
+
+        std::cout << "Preceptor Begin" << std::endl
+            << "Time : " << getTimeNow() << std::endl
+            << "GYR : " << _GYR.rt << std::endl
+            << "Acc : " << _ACC.a << std::endl
+            << "HJ : " << std::endl;
+        
+        for(auto i:_HJ)
+        {
+            std::cout << '\t' << i.second.n << " : " << i.second.ax << std::endl;
+        }
+        vec3<double> c, f;
+        getFRP(WhichFoot::wf_left, c, f);
+        std::cout << "FRPl : " << c << ' ' << f << std::endl;
+        getFRP(WhichFoot::wf_right, c, f);
+        std::cout << "FRPr : " << c << ' ' << f << std::endl
+        << "Preceptor End" << std::endl;
     }
 
 
