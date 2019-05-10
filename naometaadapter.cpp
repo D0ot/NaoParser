@@ -18,7 +18,7 @@ namespace NaoMetaData
 
 
 
-    bool NaoMetaAdapterIter::operator!=(NaoMetaAdapterIter& arg_iter)
+    bool NaoMetaAdapterIter::operator!=(const NaoMetaAdapterIter& arg_iter)
     {
         return index != arg_iter.index;
     }
@@ -44,28 +44,38 @@ namespace NaoMetaData
 
     }
 
-    NaoMetaAdapterIter& NaoMetaFileSource::begin()
+    NaoMetaAdapterIter NaoMetaFileSource::begin()
     {
-        auto temp = std::shared_ptr<NaoMetaAdapterIter>(
+        /*auto temp = std::shared_ptr<NaoMetaAdapterIter>(
             new NaoMetaAdapterIter(static_cast<NaoMetaAdapter*>(this), 0)
             );
 
         iters.push_back(temp);
-        return *temp;
+        return *temp;*/
+
+
+        return NaoMetaAdapterIter(this, 0);
+
+
     }
 
-    NaoMetaAdapterIter& NaoMetaFileSource::end()
+    NaoMetaAdapterIter NaoMetaFileSource::end()
     {
-        auto temp = std::shared_ptr<NaoMetaAdapterIter>(
+        /*auto temp = std::shared_ptr<NaoMetaAdapterIter>(
             new NaoMetaAdapterIter(static_cast<NaoMetaAdapter*>(this), data.size())
             );
 
         iters.push_back(temp);
-        return *temp;
+        return *temp;*/
+
+        return NaoMetaAdapterIter(this, data.size());
     }
 
     std::string& NaoMetaFileSource::getData(size_t arg_index)
     {
+        #ifdef DEBUG
+        std::cout << "Data get " << arg_index << ' ' <<data.size() << std::endl;
+        #endif
         return data.at(arg_index);
     }
 
@@ -73,8 +83,16 @@ namespace NaoMetaData
     {
         for(int i = start_index; i <= end_index; ++i)
         {
-            data.push_back(std::move(loadFiletoString(prefix + std::to_string(i))))       
+            #ifdef DEBUG
+            std::cout << "In load loop" << std::endl;
+            #endif
+            data.push_back(std::move(loadFiletoString(dirName + prefix + std::to_string(i))));     
         }
+    }
+
+    size_t NaoMetaFileSource::getSize()
+    {
+        return data.size();
     }
 
 } // namespace NaoMetaData

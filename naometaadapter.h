@@ -19,11 +19,11 @@ namespace NaoMetaData
         friend NaoMetaFileSource;
       private:
         size_t index;
-        std::shared_ptr<NaoMetaAdapter> data;
+        NaoMetaAdapter* data;
         NaoMetaAdapterIter(NaoMetaAdapter *arg_adapter, size_t arg_index);
       public:
         NaoMetaAdapterIter& operator++();
-        bool operator!=(NaoMetaAdapterIter& arg_iter);
+        bool operator!=(const NaoMetaAdapterIter& arg_iter);
         std::string &operator*();
     };
 
@@ -60,8 +60,9 @@ namespace NaoMetaData
         NaoMetaFileSource(const std::string &arg_dir, const std::string &arg_prefix, 
           const int arg_start, const int arg_end);
         std::string& getData(size_t index);
-        NaoMetaAdapterIter& begin();
-        NaoMetaAdapterIter& end();
+        size_t getSize();
+        NaoMetaAdapterIter begin();
+        NaoMetaAdapterIter end();
         virtual ~NaoMetaFileSource() {};
 
         

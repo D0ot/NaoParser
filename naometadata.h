@@ -144,6 +144,7 @@ namespace NaoMetaData
         MetaData();
         MetaData(const std::string& arg_in);
         void updateData(const std::string& arg_in);
+        void updateDataFromString(const std::string& arg_sexp);
         double getHingeJointDegree(const std::string& arg_name);
         double getTimeNow()const;
         std::string getPlayMode()const;

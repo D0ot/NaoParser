@@ -4,7 +4,9 @@ project(learnse)
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall ${CMAKE_CXX_FLAGS}")
 
-set(SHARED_SOURCES naometadata.cpp sexpresso.cpp naometaadapter.cpp)
+add_definitions(-DDEBUG)
+
+set(SHARED_SOURCES naometadata.cpp sexpresso.cpp naometaadapter.cpp naometacommon.cpp)
 
 set(MAIN_SOURCES main.cpp)
 

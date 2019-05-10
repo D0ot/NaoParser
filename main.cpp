@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include "sexpresso.hpp"
 #include "naometadata.h"
+#include "naometaadapter.h"
 
 const std::string testfile = "/home/doot/learnthings/learnse/test.se";
 const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
@@ -104,10 +105,32 @@ void test3()
 	}
 }
 
+void testFileSourceAdapter()
+{
+	auto fs = NaoMetaData::NaoMetaFileSource("/home/doot/robocup3d/logdata/", "prereceptor.log", 0, 700);
+	NaoMetaData::MetaData md;
+	for(auto i: fs)
+	{
+		usleep(1000*50);
+		md.updateDataFromString(i);
+		md.print();
+	}
+
+	
+
+}
+
 
 int main(void)
 {
-	test3();
+	//test3();
+	try{
+		testFileSourceAdapter();
+	} catch (std::exception & e)
+	{
+		std::cerr << "In main catch an exception : " << e.what() << std::endl;
+	}
+	
 	return 0;
 }
 

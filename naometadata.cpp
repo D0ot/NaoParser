@@ -39,9 +39,12 @@ namespace NaoMetaData
 	    std::stringstream ss;
 	    ss << fb.rdbuf();
 	    auto strdata = ss.str();
+    }
 
+    void MetaData::updateDataFromString(const std::string& arg_sexp)
+    {
         //parse
-        auto parser = sexpresso::parse(strdata);
+        auto parser = sexpresso::parse(arg_sexp);
 
 
         //if parse is "time 1 2 3" the arguments would be "1", "2", "3". 
