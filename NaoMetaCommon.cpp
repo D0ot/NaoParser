@@ -3,8 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
-#include "naometadata.h"
-#include "naometacommon.h"
+#include "NaoMetaData.h"
+#include "NaoMetaCommon.h"
 
 
 namespace NaoMetaData

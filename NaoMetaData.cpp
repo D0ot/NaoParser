@@ -1,6 +1,6 @@
 //Author D0ot at github
 //5.10 2019
-#include "naometadata.h"
+#include "NaoMetaData.h"
 
 
 namespace NaoMetaData

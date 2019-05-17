@@ -1,7 +1,7 @@
 //Author D0ot at github
 
-#include "naometaadapter.h"
-#include "naometacommon.h"
+#include "NaoMetaAdapter.h"
+#include "NaoMetaCommon.h"
 namespace NaoMetaData
 {
     NaoMetaAdapter::NaoMetaAdapter(){};

@@ -9,8 +9,8 @@
 #include <cstdlib>
 #include <unistd.h>
 #include "sexpresso.hpp"
-#include "naometadata.h"
-#include "naometaadapter.h"
+#include "NaoMetaData.h"
+#include "NaoMetaAdapter.h"
 
 const std::string testfile = "/home/doot/learnthings/learnse/test.se";
 const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
