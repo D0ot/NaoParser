@@ -2,6 +2,7 @@
 
 #include "NaoMetaAdapter.h"
 #include "NaoMetaCommon.h"
+
 namespace NaoMetaData
 {
     NaoMetaAdapter::NaoMetaAdapter(){};
@@ -94,6 +95,85 @@ namespace NaoMetaData
     {
         return data.size();
     }
+
+
+    NaoMetaServerTrack::NaoMetaServerTrack(const std::string &arg_dp, const std::string &arg_fn)
+    {
+        dirPath = arg_dp;
+        fileName = arg_fn;
+        openFile();
+        framePos = 0;
+        
+    }
+
+    void NaoMetaServerTrack::updataMainData()noexcept
+    {
+        std::string temp;
+        mainData.clear();
+        while(std::getline(trackFile, temp))
+        {
+            mainData.push_back(temp.substr(4));
+        }
+    }
+
+    bool NaoMetaServerTrack::openFile()
+    {
+        trackFile.open(dirPath + fileName);
+        if(trackFile.is_open())
+        {
+            updataMainData();
+            mainDataGood = true;
+            return true;
+        } else
+        {
+            return false;
+        }
+        
+        
+    }
+
+    bool NaoMetaServerTrack::openFile(const std::string &arg_dp, const std::string &arg_fn)
+    {
+        dirPath = arg_dp;
+        fileName = arg_fn;
+        if(trackFile.is_open())
+        {
+            trackFile.close();
+            trackFile.clear();
+        }
+        return openFile();
+    }
+
+    bool NaoMetaServerTrack::isGood()const noexcept
+    {
+        return mainDataGood;
+    }
+
+    std::size_t NaoMetaServerTrack::getFramesNumber()const noexcept
+    {
+        return mainData.size();
+    }
+
+    std::size_t NaoMetaServerTrack::setFramesPos(const std::size_t arg_pos)noexcept
+    {
+        framePos = arg_pos;
+        return framePos;
+    }
+
+    std::string NaoMetaServerTrack::getNextFrame() noexcept
+    {
+        return mainData[framePos++];
+    }
+
+    std::string NaoMetaServerTrack::getFrame(std::size_t arg_pos)
+    {
+        return mainData[arg_pos];
+    }
+
+
+
+
+
 
 } // namespace NaoMetaData
 

@@ -5,6 +5,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <memory>
 
@@ -14,6 +15,8 @@ namespace NaoMetaData
     class NaoMetaAdapterIter;
     class NaoMetaFileSource;
     //Iter base
+
+
     class NaoMetaAdapterIter
     {
         friend NaoMetaFileSource;
@@ -66,6 +69,35 @@ namespace NaoMetaData
         virtual ~NaoMetaFileSource() {};
 
         
+
+    };
+
+    //it comes from files too...
+    //to be honest, it is a bad design.
+    class NaoMetaServerTrack
+    {
+      private:
+        //main data
+        std::string dirPath;
+        std::string fileName;
+        std::ifstream trackFile;
+        std::vector<std::string> mainData;
+        std::size_t frameNum; // the whole lines number in the file
+        std::size_t framePos; // the pointer...
+
+        //flags
+        bool mainDataGood; // true if mainData can be used.
+        void updataMainData()noexcept;
+
+      public:
+        NaoMetaServerTrack(const std::string &arg_dp, const std::string &arg_fn);
+        bool openFile();
+        bool openFile(const std::string &arg_dp, const std::string &arg_fn);
+        bool isGood()const noexcept;
+        std::size_t getFramesNumber()const noexcept;
+        std::size_t setFramesPos(const std::size_t arg_pos)noexcept;
+        std::string getNextFrame() noexcept;
+        std::string getFrame(std::size_t arg_pos);
 
     };
 
