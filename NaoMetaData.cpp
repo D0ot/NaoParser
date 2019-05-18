@@ -27,13 +27,13 @@ namespace NaoMetaData
     }
 
 
-    void MetaData::updateData(const std::string& arg_in)
+    void MetaData::updateData(const std::string& arg_fileName)
     {
                 //read a file to std::string
-        auto fb = std::ifstream(arg_in);
+        auto fb = std::ifstream(arg_fileName);
         if(!fb.is_open())
         {
-            throw MetaDataExeception("File:" + arg_in + "open failed.");
+            throw MetaDataExeception("File:" + arg_fileName + "open failed.");
         }
         
 	    std::stringstream ss;
@@ -45,17 +45,15 @@ namespace NaoMetaData
     {
         //parse
         auto parser = sexpresso::parse(arg_sexp);
-
-
         //if parse is "time 1 2 3" the arguments would be "1", "2", "3". 
         auto spnow = parser.getChildByPath("time/now");
-        _time.now = std::stod(spnow->value.sexp[1].value.str);
-
-
+        auto a = spnow->value.sexp[1].value.str;
+        _time.now = std::stod(a);
 
         HJ tempHJ;
         FRP tempFRP;
         //iter
+        
         for(auto&& iter: parser.arguments())
         {
             switch(iter.toString()[0])
@@ -98,6 +96,7 @@ namespace NaoMetaData
                     break;
 
                 case 'F': //FRP
+                    std::cout << "log 1 " << std::endl;
                     tempFRP = resolveFRP(iter);
                     if(tempFRP.n[0] == 'l')
                     {

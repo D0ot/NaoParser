@@ -8,6 +8,7 @@
 #include <fstream>
 #include <vector>
 #include <memory>
+#include <cstdint>
 
 namespace NaoMetaData
 {
@@ -82,7 +83,6 @@ namespace NaoMetaData
         std::string fileName;
         std::ifstream trackFile;
         std::vector<std::string> mainData;
-        std::size_t frameNum; // the whole lines number in the file
         std::size_t framePos; // the pointer...
 
         //flags
@@ -94,6 +94,7 @@ namespace NaoMetaData
         bool openFile();
         bool openFile(const std::string &arg_dp, const std::string &arg_fn);
         bool isGood()const noexcept;
+        bool nextVaild()const noexcept;
         std::size_t getFramesNumber()const noexcept;
         std::size_t setFramesPos(const std::size_t arg_pos)noexcept;
         std::string getNextFrame() noexcept;

@@ -14,6 +14,8 @@
 
 const std::string testfile = "/home/doot/learnthings/learnse/test.se";
 const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
+const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558074908/";
+
 std::string file2String(const std::string arg_filename)
 {
 	auto fb = std::ifstream(testfile);
@@ -121,11 +123,45 @@ void testFileSourceAdapter()
 }
 
 
+void testServerTrack()
+{
+
+	auto track = NaoMetaData::NaoMetaServerTrack(logDataRoot, "outfile.dat1");
+	std::size_t frameSize = track.getFramesNumber();
+	std::cout << std::endl << std::endl;
+	NaoMetaData::MetaData md;
+	
+	
+	
+	/*for(std::size_t iter = 0; iter < frameSize; ++iter)
+	{
+		md.updateDataFromString(track.getFrame(iter));
+		std::system("clear");
+		std::cout << "iter : " << iter << std::endl;
+		md.print();
+		usleep(50);
+	}*/
+	
+	
+	track.setFramesPos(0);
+	while(track.nextVaild())
+	{
+		std::string temp = track.getNextFrame();
+		std::system("clear");
+		md.updateDataFromString(temp);
+		md.print();
+		usleep(50);
+	}
+	
+
+}
+
+
 int main(void)
 {
 	//test3();
 	try{
-		testFileSourceAdapter();
+		testServerTrack();
 	} catch (std::exception & e)
 	{
 		std::cerr << "In main catch an exception : " << e.what() << std::endl;

@@ -143,7 +143,7 @@ namespace NaoMetaData
       public:
         MetaData();
         MetaData(const std::string& arg_in);
-        void updateData(const std::string& arg_in);
+        void updateData(const std::string& arg_fileName);
         void updateDataFromString(const std::string& arg_sexp);
         double getHingeJointDegree(const std::string& arg_name);
         double getTimeNow()const;

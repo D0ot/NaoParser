@@ -109,10 +109,21 @@ namespace NaoMetaData
     void NaoMetaServerTrack::updataMainData()noexcept
     {
         std::string temp;
+        char dummy;
         mainData.clear();
-        while(std::getline(trackFile, temp))
+        while(!trackFile.eof())
         {
-            mainData.push_back(temp.substr(4));
+            // you can't use >> here to get dummy content
+            // more detail is difference between .get() and .>> (char)
+
+            trackFile.get(dummy);
+            trackFile.get(dummy);
+            trackFile.get(dummy);
+            trackFile.get(dummy);
+            
+            getline(trackFile, temp);
+            
+            mainData.push_back(temp);
         }
     }
 
@@ -147,6 +158,15 @@ namespace NaoMetaData
     bool NaoMetaServerTrack::isGood()const noexcept
     {
         return mainDataGood;
+    }
+
+    bool NaoMetaServerTrack::nextVaild()const noexcept
+    {
+        if(framePos >= mainData.size())
+        {
+            return false;
+        }
+        return true;
     }
 
     std::size_t NaoMetaServerTrack::getFramesNumber()const noexcept
