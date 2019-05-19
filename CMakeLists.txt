@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Wall ${CMAKE_CXX_FLAGS}")
 
 add_definitions(-DDEBUG)
 
-set(SHARED_SOURCES NaoMetaData.cpp sexpresso.cpp NaoMetaAdapter.cpp NaoMetaCommon.cpp)
+set(SHARED_SOURCES NaoMetaData.cpp sexpresso.cpp NaoMetaAdapter.cpp NaoMetaCommon.cpp DataSelector.cpp)
 
 set(MAIN_SOURCES main.cpp)
 

@@ -120,8 +120,8 @@ namespace NaoMetaData
     NaoMetaData::GS MetaData::resolveGS(const sexpresso::Sexp &arg_sexp)
     {
         NaoMetaData::GS temp;
-        temp.t = std::stod(arg_sexp.value.sexp[1].value.sexp[1].value.str);
-        temp.pm = arg_sexp.value.sexp[2].value.sexp[1].value.str;
+        temp.t = std::stod(arg_sexp.value.sexp[3].value.sexp[1].value.str);
+        temp.pm = arg_sexp.value.sexp[4].value.sexp[1].value.str;
         return temp;
     }
 

@@ -8,14 +8,17 @@
 #include <cstdint>
 #include <cstdlib>
 #include <unistd.h>
+#include <map>
+#include <utility>
 #include "sexpresso.hpp"
 #include "NaoMetaData.h"
 #include "NaoMetaAdapter.h"
 #include "NaoMetaCommon.h"
+#include "DataSelector.h"
 
 const std::string testfile = "/home/doot/learnthings/learnse/test.se";
 const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
-const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558167206/";
+const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558236478/";
 
 std::string file2String(const std::string arg_filename)
 {
@@ -126,24 +129,66 @@ void testFileSourceAdapter()
 
 void testServerTrack()
 {
-	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat1");
+	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat5");
 	NaoMetaData::MetaData md;
+	std::map<std::string, bool> table;
+	std::vector<std::pair<double, std::string>> goalFrames;
+	
 	for(auto i : data)
 	{
 		md.updateDataFromString(i);
 		system("clear");
+		std::cout << "Play Mode" << md.getPlayMode() << std::endl;
+		table[md.getPlayMode()] = true;
+
+		if(md.getPlayMode().find("Goal") == 0)
+		{
+			goalFrames.push_back(std::make_pair(md.getTimeNow(), md.getPlayMode()));
+			std::cin.get();
+		}
+
 		md.print();
-		
 	}
 
+	for(auto i : table)
+	{
+		std::cout << i.first << std::endl;
+	}
+
+	for(auto i : goalFrames)
+	{
+		std::cout << i.second << ':' << i.first << std::endl;
+	}
+
+
+
 }
+
+void selectorTest()
+{
+	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat5");
+	auto sub_data1 = NaoMetaData::selectBeforeGoal(data, 2);
+	//auto sub_data1 = data;
+	NaoMetaData::MetaData md;
+	std::cout << "Check" << std::endl;
+	for(auto i : sub_data1)
+	{
+		md.updateDataFromString(i);
+		std::cout << system("clear") << std::endl;
+		md.print();
+		usleep(10000);
+
+	}
+	
+}
+
 
 
 int main(void)
 {
 	//test3();
 	try{
-		testServerTrack();
+		selectorTest();
 	} catch (std::exception & e)
 	{
 		std::cerr << "In main catch an exception : " << e.what() << std::endl;

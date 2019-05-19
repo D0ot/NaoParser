@@ -1,6 +1,5 @@
 (time (now 14.16))
-(GS (sl 0) (sr 0) (t 0.00) 
-(pm BeforeKickOff))
+(GS (sl 0) (sr 0) (t 0.00) (pm BeforeKickOff))
 (hear UTAustinVilla_Base 0.00 4.09 aSicUx#G8S4aa)
 (GYR (n torso) (rt 0.66 -0.57 1.54))
 (ACC (n torso) (a 0.00 0.01 9.81))
