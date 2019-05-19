@@ -77,6 +77,7 @@ namespace NaoMetaData
     //to be honest, it is a bad design.
     class NaoMetaServerTrack
     {
+      friend std::vector<std::string> loadFiletoMetaData(const std::string& arg_fileName);
       private:
         //main data
         std::string dirPath;

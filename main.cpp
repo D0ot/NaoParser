@@ -11,10 +11,11 @@
 #include "sexpresso.hpp"
 #include "NaoMetaData.h"
 #include "NaoMetaAdapter.h"
+#include "NaoMetaCommon.h"
 
 const std::string testfile = "/home/doot/learnthings/learnse/test.se";
 const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
-const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558074908/";
+const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558167206/";
 
 std::string file2String(const std::string arg_filename)
 {
@@ -125,34 +126,15 @@ void testFileSourceAdapter()
 
 void testServerTrack()
 {
-
-	auto track = NaoMetaData::NaoMetaServerTrack(logDataRoot, "outfile.dat1");
-	std::size_t frameSize = track.getFramesNumber();
-	std::cout << std::endl << std::endl;
+	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat1");
 	NaoMetaData::MetaData md;
-	
-	
-	
-	/*for(std::size_t iter = 0; iter < frameSize; ++iter)
+	for(auto i : data)
 	{
-		md.updateDataFromString(track.getFrame(iter));
-		std::system("clear");
-		std::cout << "iter : " << iter << std::endl;
+		md.updateDataFromString(i);
+		system("clear");
 		md.print();
-		usleep(50);
-	}*/
-	
-	
-	track.setFramesPos(0);
-	while(track.nextVaild())
-	{
-		std::string temp = track.getNextFrame();
-		std::system("clear");
-		md.updateDataFromString(temp);
-		md.print();
-		usleep(50);
+		
 	}
-	
 
 }
 

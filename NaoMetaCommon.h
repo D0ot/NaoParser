@@ -6,6 +6,7 @@
 namespace NaoMetaData
 {
     std::string loadFiletoString(const std::string& arg_fileName);
+    std::vector<std::string> loadFiletoMetaData(const std::string& arg_fileName);
 } // namespace NaoMetaData
 
 

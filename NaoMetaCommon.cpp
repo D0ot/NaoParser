@@ -3,8 +3,10 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <vector>
 #include "NaoMetaData.h"
 #include "NaoMetaCommon.h"
+#include "NaoMetaAdapter.h"
 
 
 namespace NaoMetaData
@@ -22,4 +24,12 @@ namespace NaoMetaData
 	    ss << fb.rdbuf();
 	    return ss.str();
     }
+
+    std::vector<std::string> loadFiletoMetaData(const std::string& arg_fileName)
+    {
+        auto track = NaoMetaServerTrack("", arg_fileName);
+        return track.mainData;
+    }
+
+
 } // namespace NaoMetaData
