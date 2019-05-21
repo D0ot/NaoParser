@@ -15,10 +15,11 @@
 #include "NaoMetaAdapter.h"
 #include "NaoMetaCommon.h"
 #include "DataSelector.h"
+#include "DataGenerator.h"
 
 const std::string testfile = "/home/doot/learnthings/learnse/test.se";
 const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
-const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558236478/";
+const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558280119/";
 
 std::string file2String(const std::string arg_filename)
 {
@@ -129,7 +130,7 @@ void testFileSourceAdapter()
 
 void testServerTrack()
 {
-	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat5");
+	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat11");
 	NaoMetaData::MetaData md;
 	std::map<std::string, bool> table;
 	std::vector<std::pair<double, std::string>> goalFrames;
@@ -167,7 +168,7 @@ void testServerTrack()
 void selectorTest()
 {
 	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat5");
-	auto sub_data1 = NaoMetaData::selectBeforeGoal(data, 2);
+	auto sub_data1 = NaoMetaData::selectBeforeGoal(data, 4);
 	//auto sub_data1 = data;
 	NaoMetaData::MetaData md;
 	std::cout << "Check" << std::endl;
@@ -175,10 +176,11 @@ void selectorTest()
 	{
 		md.updateDataFromString(i);
 		std::cout << system("clear") << std::endl;
-		md.print();
+		//md.print();
 		usleep(10000);
-
 	}
+
+	NaoMetaData::writeToCsvFile("./hj.csv", data);
 	
 }
 

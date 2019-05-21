@@ -96,7 +96,9 @@ namespace NaoMetaData
                     break;
 
                 case 'F': //FRP
+                    #ifdef DEBUG
                     std::cout << "log 1 " << std::endl;
+                    #endif
                     tempFRP = resolveFRP(iter);
                     if(tempFRP.n[0] == 'l')
                     {
