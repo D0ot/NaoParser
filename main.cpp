@@ -20,7 +20,7 @@
 
 const std::string testfile = "/home/doot/learnthings/learnse/test.se";
 const std::string testfile_prefix = "/home/doot/robocup3d/logdata/prereceptor.log";
-const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1558588129/";
+const std::string logDataRoot = "/home/doot/robocup3d/logdata1/agentctrl/1560572946/";
 const std::string outputDataDir = "../output/";
 
 std::string file2String(const std::string arg_filename)
@@ -132,7 +132,7 @@ void testFileSourceAdapter()
 
 void testServerTrack()
 {
-	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat11");
+	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat1");
 	NaoMetaData::MetaData md;
 	std::map<std::string, bool> table;
 	std::vector<std::pair<double, std::string>> goalFrames;
@@ -169,7 +169,7 @@ void testServerTrack()
 
 void selectorTest()
 {
-	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat11");
+	auto data = NaoMetaData::loadFiletoMetaData(logDataRoot + "outfile.dat1");
 	//auto sub_data1 = NaoMetaData::selectBeforeGoal(data, 9);
 	auto sub_data1 = data;
 	auto outfile = outputDataDir + std::to_string(time(NULL)) + ".csv";
