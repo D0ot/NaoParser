@@ -11,3 +11,4 @@ set(SHARED_SOURCES NaoMetaData.cpp sexpresso.cpp DataGenerator.cpp NaoMetaAdapte
 set(MAIN_SOURCES main.cpp)
 
 add_executable(main ${MAIN_SOURCES} ${SHARED_SOURCES})
+add_executable(stats stats.cpp ${SHARED_SOURCES})
